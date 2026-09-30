@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { IMAGES, MEMBER_WINDOW_DAYS, PLANS, PUBLIC_WINDOW_DAYS, SERVICES, serviceById, type Plan } from '../lib/catalog';
 import { money } from '../lib/format';
 import { unitName } from '../lib/rules';
@@ -101,7 +102,7 @@ export function Landing() {
       {/* SERVICIOS */}
       <section className="section" id="servicios" style={{ paddingTop: 24 }}>
         <div className="wrap services-grid">
-          <div className="section-head">
+          <div className="section-head reveal">
             <p className="eyebrow">Nuestros servicios</p>
             <h2>Tratamientos diseñados para ti</h2>
             <p className="muted">
@@ -112,8 +113,8 @@ export function Landing() {
             </a>
           </div>
           <div className="service-list">
-            {SERVICES.map((s) => (
-              <article className="service-card" key={s.id}>
+            {SERVICES.map((s, i) => (
+              <article className="service-card reveal" key={s.id} style={{ '--d': i } as CSSProperties}>
                 <Icon name={SERVICE_ICON[s.id]} size={26} />
                 <h3>{s.name}</h3>
                 <span className="dur">{s.duration} min</span>
@@ -129,7 +130,7 @@ export function Landing() {
       <section className="section plans dark" id="planes">
         <div className="wrap">
           <div className="plans-grid">
-            <div className="section-head">
+            <div className="section-head reveal">
               <p className="eyebrow">Planes de membresía</p>
               <h2>
                 Elige tu plan,
@@ -142,8 +143,12 @@ export function Landing() {
               </p>
             </div>
             <div className="plan-cards">
-              {PLANS.map((p) => (
-                <article className={`plan${p.featured ? ' featured' : ''}`} key={p.id}>
+              {PLANS.map((p, i) => (
+                <article
+                  className={`plan reveal${p.featured ? ' featured' : ''}`}
+                  key={p.id}
+                  style={{ '--d': i } as CSSProperties}
+                >
                   {p.featured && <span className="plan-flag">El más elegido</span>}
                   <div className="plan-icon">
                     <Icon name={PLAN_ICON[p.id]} size={26} />
@@ -169,7 +174,7 @@ export function Landing() {
             </div>
           </div>
 
-          <div className="priority">
+          <div className="priority reveal">
             <div>
               <p className="eyebrow">Reserva prioritaria</p>
               <h3 style={{ marginTop: 10 }}>Tu agenda se abre antes</h3>
@@ -207,12 +212,12 @@ export function Landing() {
       {/* CÓMO FUNCIONA */}
       <section className="section" id="como-funciona">
         <div className="wrap steps-grid">
-          <div className="section-head">
+          <div className="section-head reveal">
             <p className="eyebrow">Cómo funciona</p>
             <h2>En 4 pasos</h2>
             <p className="muted">Un proceso simple para que siempre tengas tu próximo turno asegurado.</p>
           </div>
-          <ol className="steps">
+          <ol className="steps stagger reveal">
             {(
               [
                 ['card', 'Elige tu plan', 'Selecciona la membresía que mejor se adapte a tu estilo y págala en la barbería.'],
@@ -249,14 +254,14 @@ export function Landing() {
           <PhoneMockups />
           <div>
             <p className="eyebrow">Tu membresía siempre contigo</p>
-            <h2 className="section-head" style={{ fontSize: 'clamp(34px, 6vw, 50px)', fontWeight: 700, margin: '12px 0 14px' }}>
+            <h2 className="reveal" style={{ fontSize: 'clamp(34px, 6vw, 50px)', fontWeight: 700, margin: '12px 0 14px' }}>
               Controla tus usos y reserva desde el celular
             </h2>
             <p className="muted">
               Consulta cuántos servicios te quedan, reserva tu próximo turno y recibe recordatorios de renovación. Todo en un solo
               lugar.
             </p>
-            <ul className="feat-list">
+            <ul className="feat-list stagger reveal">
               {(
                 [
                   ['calendar', 'Agenda en tiempo real', 'Ve los horarios libres de los cuatro barberos y reserva en segundos.'],
@@ -290,12 +295,12 @@ export function Landing() {
       {/* ESPACIO */}
       <section className="section" style={{ paddingBottom: 56 }}>
         <div className="wrap space-grid">
-          <div className="section-head">
+          <div className="section-head reveal">
             <p className="eyebrow">Barbería boutique en Sabaneta</p>
             <h2>Un espacio pensado para hombres que cuidan su estilo</h2>
             <p className="muted">Un ambiente exclusivo, buena música y un whisky en la espera. Más que una barbería, un club.</p>
           </div>
-          <div className="space-imgs">
+          <div className="space-imgs stagger reveal">
             <figure>
               <img src={IMAGES.interior} alt="Sillas de barbero de cuero en el salón" loading="lazy" />
               <figcaption>Cuero y madera</figcaption>
@@ -314,7 +319,7 @@ export function Landing() {
 
       {/* INFO */}
       <section className="info-bar">
-        <ul className="wrap info-grid">
+        <ul className="wrap info-grid stagger reveal">
           <li>
             <Icon name="pin" size={24} />
             <div>
@@ -345,12 +350,12 @@ export function Landing() {
       {/* FAQ */}
       <section className="section" id="preguntas">
         <div className="wrap faq-grid">
-          <div className="section-head">
+          <div className="section-head reveal">
             <p className="eyebrow">Preguntas frecuentes</p>
             <h2>¿Tienes dudas?</h2>
             <p className="muted">Aquí respondemos las consultas más comunes sobre el club de membresías.</p>
           </div>
-          <div className="faq-list">
+          <div className="faq-list stagger reveal">
             {FAQ.map(([q, a]) => (
               <details className="faq-item" key={q}>
                 <summary>
@@ -365,7 +370,7 @@ export function Landing() {
 
       {/* CTA */}
       <section className="wrap" style={{ paddingBottom: 24 }}>
-        <div className="cta-band">
+        <div className="cta-band reveal">
           <p className="eyebrow on-dark">Graphite Barber Studio</p>
           <h2>Tu silla te espera</h2>
           <p>Elige tu plan hoy y reserva tu primer turno con la agenda prioritaria del club.</p>
@@ -389,7 +394,7 @@ function PhoneMockups() {
     ['face', 'Limpieza facial'],
   ];
   return (
-    <div className="phones" aria-hidden="true">
+    <div className="phones reveal" aria-hidden="true">
       <div className="phone a">
         <div className="phone-screen">
           <p className="ph-title">

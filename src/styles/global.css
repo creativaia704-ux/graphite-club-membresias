@@ -25,7 +25,7 @@
   --r: 14px;
   --r-lg: 22px;
   --shadow: 0 1px 2px rgba(22, 22, 22, 0.06), 0 8px 24px rgba(22, 22, 22, 0.06);
-  --wrap: 1200px;
+  --wrap: 1360px;
   --header-h: 72px;
 }
 
@@ -479,7 +479,8 @@ p {
 }
 @media (min-width: 960px) {
   .hero-grid {
-    grid-template-columns: 1fr 1.05fr;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 56px;
     align-items: center;
     padding-block: 36px 64px;
   }
@@ -487,7 +488,7 @@ p {
     min-height: 560px;
   }
   .hero h1 {
-    font-size: clamp(56px, 5.3vw, 84px);
+    font-size: clamp(56px, 5.4vw, 92px);
   }
   .hero-quote {
     font-size: 36px;
@@ -549,6 +550,10 @@ p {
   text-transform: none;
   font-size: 14px;
   font-weight: 600;
+  line-height: 1.25;
+  min-height: 2.5em;
+  display: flex;
+  align-items: center;
 }
 .service-card .dur {
   font-size: 12px;
@@ -579,7 +584,7 @@ p {
 }
 @media (min-width: 1100px) {
   .services-grid {
-    grid-template-columns: 340px 1fr;
+    grid-template-columns: 380px 1fr;
     align-items: center;
   }
   .service-list {
@@ -698,7 +703,7 @@ p {
 }
 @media (min-width: 1100px) {
   .plans-grid {
-    grid-template-columns: 340px 1fr;
+    grid-template-columns: 380px 1fr;
     align-items: center;
   }
 }
@@ -780,6 +785,7 @@ p {
   grid-template-columns: 44px 1fr;
   gap: 14px;
   align-items: start;
+  align-content: start;
 }
 .step-n {
   width: 40px;
@@ -829,7 +835,7 @@ p {
 }
 @media (min-width: 1100px) {
   .steps-grid {
-    grid-template-columns: 340px 1fr;
+    grid-template-columns: 380px 1fr;
     align-items: start;
   }
 }
@@ -1108,7 +1114,7 @@ p {
   gap: 22px 16px;
   padding-block: 28px;
   list-style: none;
-  margin: 0;
+  margin-block: 0;
 }
 .info-grid li {
   display: flex;
@@ -2267,4 +2273,264 @@ p {
 h1,
 h2 {
   text-wrap: balance;
+}
+
+/* ============ pantallas grandes ============ */
+@media (min-width: 1600px) {
+  :root {
+    --wrap: 1480px;
+  }
+  .section {
+    padding: 96px 0;
+  }
+  .hero-visual {
+    min-height: 640px;
+  }
+}
+
+/* ============ animación ============ */
+@media (prefers-reduced-motion: no-preference) {
+  /* aparición al hacer scroll (animación, no transición: no choca con los hover) */
+  .reveal:not(.in) {
+    opacity: 0;
+  }
+  .reveal.in {
+    animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+    animation-delay: calc(var(--d, 0) * 90ms);
+  }
+  /* hijos escalonados */
+  .stagger.reveal:not(.in) {
+    opacity: 1;
+  }
+  .stagger.reveal:not(.in) > * {
+    opacity: 0;
+  }
+  .stagger.reveal.in {
+    animation: none;
+  }
+  .stagger.reveal.in > * {
+    animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+  }
+  .stagger.reveal.in > :nth-child(2) {
+    animation-delay: 0.1s;
+  }
+  .stagger.reveal.in > :nth-child(3) {
+    animation-delay: 0.2s;
+  }
+  .stagger.reveal.in > :nth-child(4) {
+    animation-delay: 0.3s;
+  }
+  .stagger.reveal.in > :nth-child(5) {
+    animation-delay: 0.4s;
+  }
+  .stagger.reveal.in > :nth-child(6) {
+    animation-delay: 0.5s;
+  }
+
+  /* línea que une los pasos: se dibuja al aparecer */
+  .steps li::after {
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 0.9s 0.4s ease;
+  }
+  .steps.in li::after {
+    transform: scaleX(1);
+  }
+
+  /* entrada del hero */
+  .hero-grid > div:first-child > * {
+    animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .hero-grid > div:first-child > :nth-child(2) {
+    animation-delay: 0.1s;
+  }
+  .hero-grid > div:first-child > :nth-child(3) {
+    animation-delay: 0.25s;
+  }
+  .hero-grid > div:first-child > :nth-child(4) {
+    animation-delay: 0.35s;
+  }
+  .hero-grid > div:first-child > :nth-child(5) {
+    animation-delay: 0.45s;
+  }
+  .hero h1 .gold {
+    animation: rise 1s 0.2s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .hero-visual {
+    animation: fade 1.2s 0.1s ease both;
+  }
+  .hero-visual img {
+    animation: kenburns 14s ease-out both;
+  }
+  .hero-quote {
+    animation: rise 1s 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .hero-quote::before,
+  .hero-quote::after {
+    animation: line 0.9s 1.2s ease both;
+    transform-origin: right;
+  }
+  .hero-badge {
+    animation: rise 0.8s 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  /* teléfonos flotando */
+  .phones.in .phone.a {
+    animation: float-a 6s 0.8s ease-in-out infinite;
+  }
+  .phones.in .phone.b {
+    animation: float-b 7s 1.2s ease-in-out infinite;
+  }
+
+  /* microinteracciones */
+  .btn svg {
+    transition: transform 0.25s ease;
+  }
+  .btn:hover svg {
+    transform: translateX(3px);
+  }
+  .service-card {
+    transition:
+      transform 0.35s ease,
+      box-shadow 0.35s ease;
+  }
+  .service-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 40px rgba(22, 22, 22, 0.1);
+  }
+  .service-card img,
+  .space-imgs img {
+    transition:
+      transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1),
+      filter 0.5s ease;
+  }
+  .service-card:hover img {
+    transform: scale(1.05);
+    filter: sepia(0.15) saturate(1) brightness(1);
+  }
+  .space-imgs figure:hover img {
+    transform: scale(1.07);
+  }
+  .plan {
+    transition:
+      transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1),
+      border-color 0.3s ease;
+  }
+  .plan:hover {
+    transform: translateY(-8px);
+    border-color: var(--gold);
+  }
+  .plan.featured:hover {
+    transform: translateY(-22px);
+  }
+  .prio-days i {
+    transition: transform 0.3s ease;
+  }
+  .priority.in .prio-days i.on {
+    animation: pop 0.5s ease both;
+  }
+  .priority.in .prio-days i.on:nth-child(2) {
+    animation-delay: 0.06s;
+  }
+  .priority.in .prio-days i.on:nth-child(3) {
+    animation-delay: 0.12s;
+  }
+  .priority.in .prio-days i.on:nth-child(4) {
+    animation-delay: 0.18s;
+  }
+  .priority.in .prio-days i.on:nth-child(5) {
+    animation-delay: 0.24s;
+  }
+  .priority.in .prio-days i.on:nth-child(6) {
+    animation-delay: 0.3s;
+  }
+  .priority.in .prio-days i.on:nth-child(7) {
+    animation-delay: 0.36s;
+  }
+  .priority.in .prio-days i.on:nth-child(8) {
+    animation-delay: 0.42s;
+  }
+  .faq-item p {
+    animation: fade 0.35s ease;
+  }
+
+  /* entrada de las pantallas de la app */
+  .page {
+    animation: rise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .opt,
+  .day,
+  .slot,
+  .chip {
+    transition:
+      border-color 0.15s,
+      background 0.15s,
+      transform 0.15s;
+  }
+  .slot:not([disabled]):hover,
+  .day:not([disabled]):hover {
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+@keyframes kenburns {
+  from {
+    transform: scale(1.12);
+  }
+}
+@keyframes line {
+  from {
+    transform: scaleX(0);
+  }
+}
+@keyframes float-a {
+  0%,
+  100% {
+    transform: rotate(-4deg) translateY(0);
+  }
+  50% {
+    transform: rotate(-4deg) translateY(-10px);
+  }
+}
+@keyframes float-b {
+  0%,
+  100% {
+    transform: rotate(4deg) translateY(0);
+  }
+  50% {
+    transform: rotate(4deg) translateY(-14px);
+  }
+}
+@keyframes pop {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+/* en táctiles el hover se queda "pegado": sin elevaciones */
+@media (hover: none) {
+  .service-card:hover,
+  .plan:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+@media (hover: none) and (min-width: 760px) {
+  .plan.featured:hover {
+    transform: translateY(-14px);
+  }
 }
