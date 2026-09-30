@@ -21,6 +21,8 @@ El cliente paga un plan mensual con una cantidad de servicios incluidos; la app 
 
 No hay login real: en **Reservar** y **Mi club** hay un selector "Estás usando la app como" para cambiar entre *Público general* y cualquiera de los miembros de ejemplo.
 
+> Pagos, correos, WhatsApp, inicio de sesión y base de datos están **simulados**: ver [Funcionalidades simuladas](#funcionalidades-simuladas) para saber cómo se comporta cada uno.
+
 ## Funcionalidades
 
 - **Planes con servicios incluidos y límite semanal**: cada plan define, por servicio, cuántos usos trae el ciclo y el máximo por semana (lunes a domingo).
@@ -144,11 +146,28 @@ Es un sitio estático (`dist/`), con `base: './'` y router por hash, así que fu
 - **Vercel** (actual): el proyecto `graphite-club-membresias` está conectado a este repositorio y cada push a `main` se publica solo. Para replicarlo: importar el repositorio → framework *Vite* → build `npm run build`, salida `dist`.
 - **GitHub Pages**: `npm run build` y publicar la carpeta `dist` (por ejemplo con la acción `actions/deploy-pages`).
 
+## Funcionalidades simuladas
+
+Es una demo funcional sin backend ni integraciones externas. La lógica del club (usos, límites, ventanas, cancelaciones, vencimientos y renovaciones) es real y está probada; lo que depende de servicios de terceros está simulado así:
+
+| Funcionalidad | Cómo se comporta en la demo | Qué haría falta en producción |
+| --- | --- | --- |
+| **Pagos** (alta y renovación) | No hay pasarela ni se piden datos de tarjeta. Al pulsar "Confirmar y pagar" / "Pagar y renovar" se registra un pago con el importe del plan en el historial (*Mi club → Pagos*) y el ciclo de 30 días empieza en ese momento. En el *Panel*, "Registrar pago" representa el cobro en mostrador (efectivo, tarjeta, Nequi o transferencia). | Pasarela colombiana (Wompi, Mercado Pago, PayU) o registro manual del cobro por parte del personal. |
+| **Correos** | No se envía ningún correo. | Proveedor de correo transaccional (Resend, SendGrid) para confirmación de reserva, cancelación y aviso de vencimiento. |
+| **WhatsApp / SMS** | No se envía ningún mensaje. Los teléfonos de los clientes se guardan y se muestran en el *Panel*, pero no se usan para contactar. | WhatsApp Business API (Meta, Twilio) para recordatorios de turno y de renovación. |
+| **Avisos de renovación** | Solo dentro de la app: banner ámbar en *Mi club* cuando faltan 5 días o menos, banner rojo si está vencida, y la lista "Renovaciones" del *Panel*. La landing habla de "recordatorios"; en esta versión son estos avisos en pantalla. | Envío automático programado (correo o WhatsApp) 5 días antes y el día del vencimiento. |
+| **Confirmación de reserva** | Modal en pantalla y notificación breve ("Turno reservado"). No se envía comprobante. | Correo o WhatsApp con los datos del turno y enlace para cancelar. |
+| **Inicio de sesión** | No hay cuentas ni contraseñas. El selector "Estás usando la app como" cambia entre *Público general* y los miembros. Al unirse al club, el nuevo miembro queda seleccionado automáticamente. | Autenticación (por ejemplo, código por SMS/WhatsApp o correo) y roles cliente / barbería. |
+| **Panel de la barbería** | Accesible para cualquiera desde el menú y el pie de página. | Acceso restringido al personal. |
+| **Base de datos** | Todo se guarda en `localStorage` del navegador (clave `graphite-club:v1`). Persiste al recargar y al cerrar la pestaña y se sincroniza entre pestañas, pero cada navegador o dispositivo tiene sus propios datos. Borrar los datos del sitio o usar "Restablecer datos de ejemplo" vuelve al estado inicial. | Base de datos compartida (por ejemplo Supabase/PostgreSQL) para que clientes y barbería vean la misma agenda. |
+| **Reloj** | Por defecto, la hora real del navegador. Las *Herramientas de prueba* del *Panel* permiten adelantarlo (+1 h, +1 día, +7 días); mientras está adelantado aparece una barra superior con la hora simulada y el botón "Volver al presente". | Se elimina: la hora la marca el servidor, en hora de Colombia. |
+| **Datos de ejemplo** | 10 miembros, turnos y pagos generados relativos al día en que se abre la app por primera vez, para que los casos de prueba siempre estén vigentes. | Datos reales de la barbería. |
+| **Instagram y dirección** | `@graphitebarberstudio` y la dirección (Cra. 45 #70 Sur-12, Sabaneta) son de ejemplo; se muestran como texto, sin enlace. | Datos reales del negocio. |
+
 ## Supuestos
 
-- No hay backend ni pagos reales: el alta y la renovación registran un pago simulado. Cada navegador tiene sus propios datos.
 - Horarios en la hora local del navegador.
-- Datos de ejemplo: la dirección (Cra. 45 #70 Sur-12), teléfonos, nombres y la cuenta de Instagram son datos de ejemplo.
+- Nombres, teléfonos y barberos son datos de ejemplo.
 
 ## Créditos
 
