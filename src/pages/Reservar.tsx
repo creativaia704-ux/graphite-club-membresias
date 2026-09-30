@@ -194,7 +194,7 @@ export function Reservar({ params }: { params: URLSearchParams }) {
                         }}
                       >
                         <span className="ic">
-                          <Icon name={SERVICE_ICON[x.id]} />
+                          <Icon name={SERVICE_ICON[x.id]} size={28} />
                         </span>
                         <span className="opt-main">
                           <span>{x.name}</span>

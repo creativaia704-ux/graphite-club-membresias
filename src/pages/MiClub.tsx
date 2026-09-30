@@ -309,7 +309,7 @@ function Appt({ b, now, onCancel }: { b: Booking; now: number; onCancel?: () => 
       <div className="appt-main">
         <div style={{ minWidth: 0 }}>
           <b>
-            <Icon name={SERVICE_ICON[b.serviceId]} size={15} /> {svc.name}
+            <Icon name={SERVICE_ICON[b.serviceId]} size={18} /> {svc.name}
           </b>
           <span>
             {fmtTime(b.start)} · {barberById(b.barberId).name}

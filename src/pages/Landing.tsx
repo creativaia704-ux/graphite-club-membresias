@@ -115,7 +115,7 @@ export function Landing() {
           <div className="service-list">
             {SERVICES.map((s, i) => (
               <article className="service-card reveal" key={s.id} style={{ '--d': i } as CSSProperties}>
-                <Icon name={SERVICE_ICON[s.id]} size={26} />
+                <Icon name={SERVICE_ICON[s.id]} size={42} />
                 <h3>{s.name}</h3>
                 <span className="dur">{s.duration} min</span>
                 <span className="price">{money(s.price)}</span>
@@ -151,7 +151,7 @@ export function Landing() {
                 >
                   {p.featured && <span className="plan-flag">El más elegido</span>}
                   <div className="plan-icon">
-                    <Icon name={PLAN_ICON[p.id]} size={26} />
+                    <Icon name={PLAN_ICON[p.id]} size={34} />
                   </div>
                   <h3>{p.name}</h3>
                   <p className="price">
