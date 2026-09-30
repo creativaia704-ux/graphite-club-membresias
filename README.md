@@ -3,7 +3,8 @@
 Club de membresías de corte y barba para **Graphite Barber Studio** (Sabaneta, Antioquia, Colombia).
 El cliente paga un plan mensual con una cantidad de servicios incluidos; la app controla cuántos usó, no deja pasar el límite semanal, le da prioridad en la agenda y avisa las renovaciones. Para la barbería es ingreso fijo; para el cliente, su corte siempre fresco.
 
-> **Vista previa:** _pendiente de publicar_ (ver [Despliegue](#despliegue))
+> **Vista previa:** https://graphite-club-membresias.vercel.app
+> **Repositorio:** https://github.com/creativaia704-ux/graphite-club-membresias
 > Proyecto para Kodarvia. Todos los datos son de ejemplo.
 
 ---
@@ -140,7 +141,7 @@ npm run preview  # sirve dist/
 
 Es un sitio estático (`dist/`), con `base: './'` y router por hash, así que funciona igual en Vercel, Netlify o GitHub Pages.
 
-- **Vercel**: importar el repositorio → framework *Vite* → build `npm run build`, salida `dist`.
+- **Vercel** (actual): el proyecto `graphite-club-membresias` está conectado a este repositorio y cada push a `main` se publica solo. Para replicarlo: importar el repositorio → framework *Vite* → build `npm run build`, salida `dist`.
 - **GitHub Pages**: `npm run build` y publicar la carpeta `dist` (por ejemplo con la acción `actions/deploy-pages`).
 
 ## Supuestos
